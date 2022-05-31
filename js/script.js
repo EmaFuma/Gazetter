@@ -55,65 +55,33 @@ $(document).ready(function () {
   wikipedia = new L.featureGroup();
   map.addLayer(wikipedia);
 
+  // EASY BUTTON SETTINGS
+
+  function easyButtonSettings(iconColor, iconType, iconModal) {
+    L.easyButton(
+      `<i class="material-icons" style="color: ${iconColor}";>${iconType}</i>`,
+      function () {
+        $(`#${iconModal}`).modal("show");
+      }, {
+        position: "topleft",
+      }
+    ).addTo(map);
+  }
+
   L.easyButton(
     '<i class="material-icons">refresh</i>',
     function () {
       window.location.reload();
-    },
-    {
+    }, {
       position: "bottomright",
     }
   ).addTo(map);
 
-  L.easyButton(
-    '<i class="material-icons" style="color: blue";>info</i>',
-    function () {
-      $("#information").modal("show");
-    },
-    {
-      position: "topleft",
-    }
-  ).addTo(map);
-
-  L.easyButton(
-    '<i class="material-icons" style="color: green";>coronavirus</i>',
-    function () {
-      $("#coronavirus").modal("show");
-    },
-    {
-      position: "topleft",
-    }
-  ).addTo(map);
-
-  L.easyButton(
-    '<i class="material-icons" style="color: grey";>wb_cloudy</i>',
-    function () {
-      $("#forecast").modal("show");
-    },
-    {
-      position: "topleft",
-    }
-  ).addTo(map);
-
-  L.easyButton(
-    '<i class="material-icons" style="color: black";>newspaper</i>',
-    function () {
-      $("#news").modal("show");
-    },
-    {
-      position: "topleft",
-    }
-  ).addTo(map);
-
-  L.easyButton(
-    '<i class="material-icons" style="color: brown";>photo_camera</i>',
-    function () {
-      $("#images").modal("show");
-    },
-    {
-      position: "topleft",
-    }
-  ).addTo(map);
+  easyButtonSettings("blue", "info", "information");
+  easyButtonSettings("green", "coronavirus", "coronavirus");
+  easyButtonSettings("grey", "wb_cloudy", "forecast");
+  easyButtonSettings("black", "newspaper", "news");
+  easyButtonSettings("brown", "photo_camera", "images");
 
   getCodes();
   getLocation();
@@ -294,9 +262,9 @@ function getCities(north, south, west, east, code) {
             icon: customMarker,
           }).bindPopup(
             "<b>" +
-              location[i].name +
-              "</b><br>Population: " +
-              parseInt(location[i].population).toLocaleString("en")
+            location[i].name +
+            "</b><br>Population: " +
+            parseInt(location[i].population).toLocaleString("en")
           );
           nearCities.addLayer(marker);
         }
@@ -331,20 +299,20 @@ function getWeather(lat, lng) {
           const day = days[new Date(d.dt * 1000).getDay()];
           $("#dailyForecast").append(
             "<tr><td>" +
-              day +
-              "</td><td>" +
-              parseInt(d["temp"]["max"]) +
-              "°" +
-              "/ " +
-              parseInt(d["temp"]["min"]) +
-              "°" +
-              "</td><td>" +
-              d.weather[0].description +
-              "</td><td><img src='" +
-              iconUrl +
-              d.weather[0].icon +
-              ".png" +
-              "'></td></tr>"
+            day +
+            "</td><td>" +
+            parseInt(d["temp"]["max"]) +
+            "°" +
+            "/ " +
+            parseInt(d["temp"]["min"]) +
+            "°" +
+            "</td><td>" +
+            d.weather[0].description +
+            "</td><td><img src='" +
+            iconUrl +
+            d.weather[0].icon +
+            ".png" +
+            "'></td></tr>"
           );
         }
       }
@@ -473,8 +441,8 @@ function getImages(country) {
         for (let i = 0; i < 5; i++) {
           $("#imagesBody").append(
             "<img class='countryImage' src=" +
-              images[i].webformatURL +
-              " alt='Country Image'>"
+            images[i].webformatURL +
+            " alt='Country Image'>"
           );
         }
       }
