@@ -105,6 +105,9 @@ function getCodes() {
         );
       }
     },
+    error: function () {
+      console.log("There was a problem getting the codes.");
+    }
   });
 }
 
@@ -135,6 +138,9 @@ function showPosition(position) {
       $("#countries").val(isoCode);
       focus(isoCode);
     },
+    error: function () {
+      console.log("There was a problem getting the positions.");
+    }
   });
 }
 
@@ -184,6 +190,9 @@ function getCountryInfo(isoCode) {
       getNews(name);
       getImages(name);
     },
+    error: function () {
+      console.log("There was a problem getting the country info.");
+    }
   });
 }
 
@@ -229,6 +238,9 @@ function getBorders(isoCode) {
       getLinks(north, south, west, east, code);
       getCovidStats(code);
     },
+    error: function () {
+      console.log("There was a problem getting the country borders.");
+    }
   });
 }
 
@@ -270,6 +282,9 @@ function getCities(north, south, west, east, code) {
         }
       }
     },
+    error: function () {
+      console.log("There was a problem getting the cities.");
+    }
   });
 }
 
@@ -317,6 +332,9 @@ function getWeather(lat, lng) {
         }
       }
     },
+    error: function () {
+      console.log("There was a problem getting the weather.");
+    }
   });
 }
 
@@ -352,6 +370,9 @@ function getLinks(north, south, west, east, code) {
         $("#link").attr("href", wiki);
       }
     },
+    error: function () {
+      console.log("There was a problem getting the links.");
+    }
   });
 }
 
@@ -374,6 +395,9 @@ function getCovidStats(countryCode) {
       $("#totalDeaths").html(numberWithPoint(data.deaths));
       $("#totalRecovered").html(numberWithPoint(data.recovered));
     },
+    error: function () {
+      console.log("There was a problem getting the covid stats.");
+    }
   });
 }
 
@@ -399,6 +423,9 @@ function getNews(country) {
         }
       }
     },
+    error: function () {
+      console.log("There was a problem getting the news.");
+    }
   });
 }
 
@@ -447,5 +474,8 @@ function getImages(country) {
         }
       }
     },
+    error: function () {
+      console.log("There was a problem getting the images.");
+    }
   });
 }
