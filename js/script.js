@@ -185,9 +185,8 @@ function getCountryInfo(isoCode) {
       $("#population").html(numberWithPoint(info.population));
       $("#countryForecast").html(name + " Weather Forecast");
       $("#covidStats").html(name + " Covid Statistics");
-      $("#newsTitle").html(name + " News");
+      $("#newsTitle").html(name + " Wikipedia");
       $("#imageTitle").html(name + " Images");
-      getNews(name);
       getImages(name);
     },
     error: function () {
@@ -236,6 +235,7 @@ function getBorders(isoCode) {
       getCities(north, south, west, east, code);
       getWeather(lat, lng);
       getLinks(north, south, west, east, code);
+      getNews(north, south, west, east, code);
       getCovidStats(code);
     },
     error: function () {
@@ -313,21 +313,22 @@ function getWeather(lat, lng) {
           const d = result.data.daily[i];
           const day = days[new Date(d.dt * 1000).getDay()];
           $("#dailyForecast").append(
-            "<tr><td>" +
-            day +
-            "</td><td>" +
-            parseInt(d["temp"]["max"]) +
-            "°" +
-            "/ " +
-            parseInt(d["temp"]["min"]) +
-            "°" +
-            "</td><td>" +
-            d.weather[0].description +
-            "</td><td><img src='" +
-            iconUrl +
-            d.weather[0].icon +
-            ".png" +
-            "'></td></tr>"
+            `
+            <tr>
+              <td>
+                ${day}
+              </td>
+              <td>
+                ${parseInt(d["temp"]["max"])}°/ ${parseInt(d["temp"]["min"])}°
+              </td>
+              <td>
+                ${d.weather[0].description}
+              </td>
+              <td>
+                <img src="${iconUrl}${d.weather[0].icon}.png">
+              </td>
+            </tr>
+            `
           );
         }
       }
@@ -403,17 +404,20 @@ function getCovidStats(countryCode) {
 
 // GET NEWS
 
-function getNews(country) {
+function getNews(north, south, west, east, code) {
   $("#newsBody").html("");
   $.ajax({
-    url: "php/getNews.php",
+    url: "php/getLinks.php",
     type: "GET",
     dataType: "json",
     data: {
-      countryName: country,
+      north: north,
+      south: south,
+      west: west,
+      east: east,
     },
     success: function (result) {
-      const data = result.data.articles;
+      const data = result.data.geonames;
       if (data.length == 0) {
         $("#newsBody").html("<h5>No News Found! Sorry for the trouble.</h5>");
         return;
@@ -432,17 +436,13 @@ function getNews(country) {
 // CREATE CARD FOR HOLDING THE NEWS
 
 function addNews(data) {
-  const author = data.author == null ? "Author Unknown" : data.author;
-  const card =
-    '<div class="card" style="width: 18rem;"> <img class="card-img-top" src="' +
-    data.urlToImage +
-    '" alt="News Image"> <div class="card-body"> <h5 class="card-title">' +
-    author +
-    '</h5> <p class="card-text">' +
-    data.title +
-    '</p> <a href="' +
-    data.url +
-    '" target="_blank" class="btn btn-dark">Details</a> </div> </div>';
+  const card = `<div class="card" style="width: 18rem;">
+                  <div class="card-body">
+                    <h5 class="card-title">${data.title}</h5>
+                    <p style="font-size: medium;">${data.summary}</p>
+                    <a href="http://${data.wikipediaUrl}" target="_blank" class="btn btn-dark">Details</a>
+                  </div>
+                </div>`
   return card;
 }
 

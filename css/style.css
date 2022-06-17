@@ -34,6 +34,7 @@
     -webkit-transform: rotate(0deg);
     transform: rotate(0deg);
   }
+
   100% {
     -webkit-transform: rotate(360deg);
     transform: rotate(360deg);
@@ -45,6 +46,7 @@
     -webkit-transform: rotate(0deg);
     transform: rotate(0deg);
   }
+
   100% {
     -webkit-transform: rotate(360deg);
     transform: rotate(360deg);
@@ -156,6 +158,14 @@ nav {
   justify-content: space-around;
 }
 
+#newsBody p {
+  font-size: small;
+  width: 10ch;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
 .modal-content {
   border-radius: 0.6rem;
 }
@@ -182,6 +192,8 @@ i.material-icons {
   width: 100%;
   padding-bottom: 5px;
 }
+
+
 
 @media only screen and (max-width: 500px) {
   body {
