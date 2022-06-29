@@ -1,5 +1,24 @@
-// LOADER SPIN
+you can nest your buttons in an L.easyBar.
 
+here's the gist of what you'll want to do:
+
+var expandButton = L.easyButton(/* button config here */);
+var rightRotationButton = L.easyButton(/* button config here */);
+var leftRotationButton = L.easyButton(/* button config here */);
+var trashButton = L.easyButton(/* button config here */);
+
+var editBar = L.easyBar([
+    expandButton,
+    rightRotationButton,
+    leftRotationButton,
+    trashButton,
+]);
+
+editBar.addTo(myMap);
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
+
+// LOADER SPIN
 $(window).on("load", function () {
   if ($("#preloader").length) {
     $("#preloader")
