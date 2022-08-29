@@ -5,7 +5,7 @@
 
     $executionStartTime = microtime(true);
 
-    $url ="http://api.geonames.org/citiesJSON?north=" . $_REQUEST["north"] . "&south=" . $_REQUEST["south"] . "&east=" . $_REQUEST["east"] . "&west=" . $_REQUEST["west"]  . "&maxRows=20&username=emafuma";
+    $url = "http://api.openweathermap.org/geo/1.0/direct?q=" . $_REQUEST["city"] . "&limit=1&appid=467736b4f69d85790782c41d4474db1d";
 
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);

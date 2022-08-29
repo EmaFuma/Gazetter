@@ -5,10 +5,7 @@
 
     $executionStartTime = microtime(true);
 
-    $country = $_REQUEST["country"];
-
-    $url = "https://holidays.abstractapi.com/v1/?api_key=829e8e26426c40ce83e36606d1318dac&country=" . $country . "&year=2022";
-
+    $url = "http://api.geonames.org/earthquakesJSON?north=" . $_REQUEST["north"] . "&south=" . $_REQUEST["south"] . "&east=" . $_REQUEST["east"] . "&west=" . $_REQUEST["west"]  . "&minMagnitude=3&username=emafuma";
 
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);

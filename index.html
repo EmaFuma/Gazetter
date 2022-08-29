@@ -4,14 +4,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no" />
+  <title>Gazetteer</title>
   <meta name="description" content="Country Profiler" />
   <meta name="author" content="Emanuele" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>The Gazetter</title>
   <link rel="icon" href="css/favicon.ico" />
   <link rel="stylesheet" href="leaflet/leaflet.css" />
   <link rel="stylesheet" href="libs/Leaflet.EasyButton-master/src/easy-button.css" />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
   <link rel="stylesheet" href="libs/Leaflet.markercluster/MarkerCluster.css" />
   <link rel="stylesheet" href="libs/Leaflet.markercluster/MarkerCluster.Default.css" />
   <link rel="stylesheet" href="libs/Leaflet.extramarkers/leaflet.extra-markers.min.css" />
@@ -21,164 +20,54 @@
 </head>
 
 <body>
-  <nav>
-    <select name="countries" id="countries"></select>
-  </nav>
-  <main>
-    <div class="modal fade" id="information">
-      <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-          <div class="modal-header" style="background-color: #9db9ca">
+  <div id="preloader"></div>
+  <div class="container-fluid h-100">
+    <div class="h-100 d-flex flex-column">
+      <div id="countriesSelect">
+        <select name="countries" id="countriesList"></select>
+      </div>
+      <div class="row flex-grow-1" id="map"></div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="information">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header d-block" style="background-color: lightblue;">
+          <div class="d-flex">
             <h5 class="modal-title" id="countryName"></h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-          <div class="modal-body" id="modalInfo">
-            <section id="result">
-              <table id="infoTable">
-                <tr>
-                  <td>Capital:</td>
-                  <td id="capitalName"></td>
-                </tr>
-                <tr>
-                  <td>Currency:</td>
-                  <td id="currency"></td>
-                </tr>
-                <tr>
-                  <td>Population:</td>
-                  <td id="population"></td>
-                </tr>
-                <tr>
-                  <td>Wikipedia:</td>
-                  <td id="wiki">
-                    <a id="link" target="_blank">Click Here</a>
-                  </td>
-                </tr>
-              </table>
-            </section>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">
-              Close
-            </button>
-          </div>
+          <h6 class="modal-title" id="countrySubInfo"></h6>
+        </div>
+        <div class="modal-body" id="modalInfo">
+          <section id="result">
+            <table id="infoTable"></table>
+            <table id="covidInfo"></table>
+            <table id="imagesBody"></table>
+            <table id="dailyForecast"></table>
+          </section>
+        </div>
+        <div class="modal-footer justify-content-center">
+          <button type="button" class="btn btn-primary active" title="Information">
+            <i class="fas fa-info-circle"></i>
+          </button>
+          <button type="button" class="btn btn-success" title="Covid">
+            <i class="fas fa-virus"></i>
+          </button>
+          <button type="button" class="btn btn-info" title="Pictures">
+            <i class="fas fa-camera"></i>
+          </button>
+          <button type="button" class="btn btn-warning" title="Weather">
+            <i class="fas fa-cloud-sun"></i>
+          </button>
         </div>
       </div>
     </div>
+  </div>
 
-    <div class="modal fade" id="coronavirus">
-      <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-          <div class="modal-header" style="background-color: #91c483">
-            <h5 class="modal-title" id="covidStats"></h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body" id="modalCovid">
-            <section>
-              <table id="covidInfo">
-                <tr>
-                  <td>New Cases</td>
-                  <td id="newCases"></td>
-                </tr>
-                <tr>
-                  <td>New Deaths</td>
-                  <td id="newDeath"></td>
-                </tr>
-                <tr>
-                  <td>Newly Recovered</td>
-                  <td id="newRecovered"></td>
-                </tr>
-                <tr>
-                  <td>Total Cases</td>
-                  <td id="totalCases"></td>
-                </tr>
-                <tr>
-                  <td>Total Deaths</td>
-                  <td id="totalDeaths"></td>
-                </tr>
-                <tr>
-                  <td>Total Recovered</td>
-                  <td id="totalRecovered"></td>
-                </tr>
-              </table>
-            </section>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">
-              Close
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="modal fade" id="forecast">
-      <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-          <div class="modal-header" style="background-color: #c8c2bc">
-            <h5 class="modal-title" id="countryForecast"></h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body" id="modalForecast">
-            <section>
-              <table id="dailyForecast"></table>
-            </section>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">
-              Close
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="modal fade" id="news">
-      <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-          <div class="modal-header" style="background-color: rgb(37, 37, 37)">
-            <h5 class="modal-title" id="newsTitle" style="color: white"></h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color: white">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body" id="newsBody"></div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">
-              Close
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="modal fade" id="images">
-      <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-          <div class="modal-header" style="background-color: brown">
-            <h5 class="modal-title" id="imageTitle" style="color: white"></h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body" id="imagesBody"></div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">
-              Close
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </main>
-
-  <div id="map"></div>
-  <div id="preloader"></div>
   <script src="leaflet/leaflet.js"></script>
   <script src="leaflet/leaflet-providers.js"></script>
   <script src="libs/Leaflet.EasyButton-master/src/easy-button.js"></script>
@@ -186,7 +75,7 @@
   <script src="libs/Leaflet.extramarkers/leaflet.extra-markers.min.js"></script>
   <script src="libs/jquery/jquery-3.5.1.min.js"></script>
   <script src="libs/bootstrap-4.5.0-dist/js/bootstrap.min.js"></script>
-  <script src="js/script.js"></script>
+  <script src="js/index.min.js"></script>
 </body>
 
 </html>

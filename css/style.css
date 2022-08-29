@@ -55,18 +55,10 @@
 
 /* ONLOAD ENDING */
 
-body {
-  padding: 0;
-  margin: 0;
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: large;
-}
-
-html,
 body,
-#map {
+html {
   height: 100%;
-  width: 100vw;
+  font-family: arial, helvetica, sans-serif
 }
 
 #map {
@@ -74,7 +66,8 @@ body,
   z-index: 0;
 }
 
-nav {
+/* It will be countriesSelect after modification, not nav anymore */
+#countriesSelect {
   position: absolute;
   top: 10px;
   left: 50%;
@@ -83,7 +76,7 @@ nav {
   z-index: 1;
 }
 
-#countries {
+#countriesList {
   width: 100%;
   border-radius: 5px;
   padding: 5px;
@@ -92,10 +85,42 @@ nav {
   color: #56829e;
 }
 
-#infoTable tr td {
-  padding: 5px 0;
+.marker-cluster span {
+  line-height: 10px
 }
 
+.marker-cluster-city {
+  background-color: rgba(50, 169, 221, .6)
+}
+
+.marker-cluster-city div {
+  background-color: rgba(21, 78, 164, .6)
+}
+
+.marker-cluster-quake {
+  background-color: rgba(239, 146, 40, .6)
+}
+
+.marker-cluster-quake div {
+  background-color: rgba(193, 87, 28, .6);
+  color: #fff
+}
+
+.marker-cluster-wiki {
+  background-color: rgba(192, 87, 160, .6);
+}
+
+.marker-cluster-wiki div {
+  background-color: rgba(110, 37, 73, .6);
+}
+
+#covidInfo,
+#imagesBody,
+#dailyForecast {
+  display: none;
+}
+
+#infoTable tr td,
 #covidInfo tr td {
   padding: 5px 0;
 }
@@ -126,7 +151,7 @@ nav {
   padding: 0;
 }
 
-#modalForecast {
+#dailyForecast tr td {
   padding: 0 0;
   text-align: center;
 }
@@ -140,30 +165,12 @@ nav {
 #newRecovered,
 #totalCases,
 #totalDeaths,
-#totalRecovered {
-  text-align: right;
-}
-
+#totalRecovered,
 #capitalName,
 #currency,
 #population,
-#wiki {
+#area {
   text-align: right;
-}
-
-#newsBody,
-#imagesBody {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
-}
-
-#newsBody p {
-  font-size: small;
-  width: 10ch;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
 }
 
 .modal-content {
