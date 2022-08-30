@@ -1,4 +1,4 @@
-// LOADER SPIN
+// LOADER SPIN http://localhost/project1
 
 $(window).on("load", function () {
   if ($("#preloader").length) {
@@ -90,8 +90,8 @@ const resetBoundaryButton = L.easyButton({
     stateName: "buttonOff",
     title: "Reset Zoom to Current Location",
     icon: "fa-search-location",
-    onClick: function (e, t) {
-      t.fitBounds(currentCountryBoundary.getBounds())
+    onClick: function (event, bounds) {
+      bounds.fitBounds(currentCountryBoundary.getBounds())
     }
   }]
 });
@@ -223,7 +223,8 @@ function getCountryInfo(currentCountryCode) {
           <td id="area">${info.areaInSqKm}</td>
         </tr>
        `);
-        getTypedButton(currentCountryName);
+        resetInfoButton();
+        getTypedButton();
         getCountryPictures(currentCountryName);
         getForecast(info.capital);
       }
@@ -574,6 +575,13 @@ function getType() {
     default:
       $("#modalInfo").html("Nothing found!");
   }
+}
+
+function resetInfoButton() {
+  const type = $(".active");
+  type.removeClass("active");
+  $(".modal-footer button[title='Information'").addClass("active");
+  getType();
 }
 
 function getTypedButton() {
