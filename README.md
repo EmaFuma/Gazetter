@@ -8,8 +8,8 @@ The process is achived with the use of an interactive map and third part API and
 
 ## Tools used in the project
 
-- CSS
 - HTML
+- CSS
 - Javascript
 - Bootstrap
 - jQuery
