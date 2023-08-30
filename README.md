@@ -11,6 +11,7 @@ The process is achived with the use of an interactive map and third part API and
 - CSS
 - HTML
 - Javascript
+- Bootstrap
 - jQuery
 - PHP
 - [Geonames](https://www.geonames.org/) - for the various country information
