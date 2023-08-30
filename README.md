@@ -13,7 +13,7 @@ The process is achived with the use of an interactive map and third part API and
 - Javascript
 - jQuery
 - PHP
-- [Geonames](https://www.geonames.org/)
-- [Disease.sh](https://disease.sh/)
-- [OpenWeatherAPI](https://openweathermap.org/api)
-- [Pixabay API](https://pixabay.com/service/about/api/)
+- [Geonames](https://www.geonames.org/), for the various country information
+- [Disease.sh](https://disease.sh/), for the covid statistics
+- [OpenWeatherAPI](https://openweathermap.org/api), for the weather forecast
+- [Pixabay API](https://pixabay.com/service/about/api/), for the country images
